@@ -1,0 +1,25 @@
+#!/usr/bin/Rscript
+
+args<-commandArgs(T)
+  filename <- args[1] 
+  outputfile<-args[2]
+  suppressMessages(library(Biostrings))
+  suppressMessages(library(tidyverse))
+   
+  # Read cluster list database
+    # Read cluster list database
+  message("Reading...")
+  db <- readDNAStringSet(filename)
+  db <- as.character(db)
+  df <- data.frame(SequenceID = names(db), Sequence = db)
+  rm(db)
+  df=df%>%separate(SequenceID, c("x1","x2","x3","x4","5","x6","x7","x8"),sep=" ")
+  df$x1=paste0("OTU",c(1:length(df$x1)))
+  df=df%>%separate(x8, c("sample_id","sample"),sep="=")
+  df=df%>%separate(x3, c("size","sizenum"),sep="=")
+  df$OTUname = paste0(df$sample,":",df$x1,";","size=",df$sizenum)
+  df2=df%>%select(OTUname,Sequence)
+  message("writing output")
+  seq<-apply(df2, 1, function(x){paste0(">",x[1],"\n",x[2])})
+  write.table(seq,file=outputfile,row.names = F,col.names = F,quote=F)
+ 

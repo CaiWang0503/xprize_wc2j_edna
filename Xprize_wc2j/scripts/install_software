@@ -1,0 +1,21 @@
+#chopper download: https://github.com/wdecoster/chopper/
+chmod +x chopper
+mv chopper /usr/local/bin/
+chopper -h
+
+brew install seqkit
+brew install vsearch
+brew install seqtk
+brew install gsed
+brew info gcc
+brew install gcc
+brew install sumaclust
+brew install libomp
+
+
+#install R
+#install R packages
+#lulu devtools::install_github("tobiasgf/lulu", force = TRUE)
+#install. packages ( "tidyverse" ) 
+#install. packages ( "BiocManager" ) 
+#BiocManager :: install ( "Biostrings") 
